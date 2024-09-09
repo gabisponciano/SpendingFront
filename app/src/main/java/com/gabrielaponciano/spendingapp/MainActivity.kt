@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.gabrielaponciano.spendingapp.ui.theme.SpendingAppTheme
 import com.gabrielaponciano.spendingapp.ui.theme.States.LoginUiState
 import com.gabrielaponciano.spendingapp.ui.theme.States.SignUpUiState
+import com.gabrielaponciano.spendingapp.ui.theme.UI.Screens.AddExpenseScreen
 import com.gabrielaponciano.spendingapp.ui.theme.UI.Screens.HomeScreen
 import com.gabrielaponciano.spendingapp.ui.theme.UI.Screens.IntroPage
 import com.gabrielaponciano.spendingapp.ui.theme.UI.Screens.LoginScreen
@@ -36,6 +37,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("home"){
                         HomeScreen(navController)
+                    }
+                    composable("add"){
+                        AddExpenseScreen()
                     }
                 }
                 }

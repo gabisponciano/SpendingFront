@@ -23,11 +23,18 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielaponciano.spendingapp.R
+import com.gabrielaponciano.spendingapp.ui.theme.Components.AddButton
 import com.gabrielaponciano.spendingapp.ui.theme.Components.CardItem
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    Scaffold { paddingValues ->
+    Scaffold (
+        bottomBar = {
+            AddButton(){
+                navController.navigate("add")
+            }
+        }
+    ){ paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()

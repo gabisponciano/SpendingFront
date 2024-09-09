@@ -33,7 +33,7 @@ import com.gabrielaponciano.spendingapp.R
 import com.gabrielaponciano.spendingapp.ui.theme.Components.DataForm
 
 @Composable
-fun AddExpense() {
+fun AddExpenseScreen() {
     Surface(modifier = Modifier.fillMaxSize()) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (nameRow, card, topBar) = createRefs()
@@ -80,5 +80,5 @@ fun AddExpense() {
 @Composable
 @Preview
 fun AddPreview(){
-    AddExpense()
+    AddExpenseScreen()
 }
