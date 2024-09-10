@@ -1,10 +1,14 @@
 package com.gabrielaponciano.spendingapp.ui.theme.ViewModels
 
+import androidx.compose.material3.DatePickerState
 import androidx.lifecycle.ViewModel
 import com.gabrielaponciano.spendingapp.ui.theme.States.AddExpenseUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class AddExpenseViewModel: ViewModel(){
 
@@ -50,4 +54,12 @@ class AddExpenseViewModel: ViewModel(){
             )
         }
     }
+
+
+    fun convertMillisToDate(millis: Long): String {
+        val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+        return formatter.format(Date(millis))
+    }
+
 }
+

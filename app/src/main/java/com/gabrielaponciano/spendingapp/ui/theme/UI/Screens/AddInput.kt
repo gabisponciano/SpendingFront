@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.gabrielaponciano.spendingapp.R
 import com.gabrielaponciano.spendingapp.ui.theme.Components.DataForm
+import com.gabrielaponciano.spendingapp.ui.theme.Components.DataFormInput
 
 @Composable
 fun AddInput() {
@@ -53,7 +54,7 @@ fun AddInput() {
                         .align(Alignment.Center)
                 )
             }
-            DataForm(modifier = Modifier
+            DataFormInput(modifier = Modifier
                 .padding(top = 16.dp)
                 .constrainAs(card) {
                     top.linkTo(nameRow.bottom)
