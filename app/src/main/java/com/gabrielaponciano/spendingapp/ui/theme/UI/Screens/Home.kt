@@ -52,7 +52,7 @@ fun HomeScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Olá, User",
+                        text = "Hello, User",
                         fontSize = 32.sp,
                         color = Color.White,
                         modifier = Modifier.padding(16.dp)

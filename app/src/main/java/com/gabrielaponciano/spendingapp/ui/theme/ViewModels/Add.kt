@@ -31,4 +31,23 @@ class AddExpenseViewModel: ViewModel(){
         }
     }
 
+    fun inputName(nameInput:String){
+        _uiState.update { currentState ->
+            currentState.copy(
+                nameInput = nameInput
+            ) }
+    }
+    fun inputDate(dateInput:Long){
+        _uiState.update { currentState ->
+            currentState.copy(
+                dateInput = dateInput
+            ) }
+    }
+    fun inputValue(valueInput:Float){
+        _uiState.update {currentState ->
+            currentState.copy(
+                valueInput = valueInput
+            )
+        }
+    }
 }

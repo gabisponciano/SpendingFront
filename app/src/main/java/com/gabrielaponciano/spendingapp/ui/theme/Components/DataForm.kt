@@ -25,9 +25,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gabrielaponciano.spendingapp.ui.theme.ViewModels.AddExpenseViewModel
 
 @Composable
-fun DataForm(modifier: Modifier, ) {
+fun DataForm(modifier: Modifier, title:String ) {
     val addExpenseViewModel = viewModel<AddExpenseViewModel>()
-    //val uiState by AddExpenseViewModel.uiState.collectAsState()
     Column(
         modifier = modifier
             .padding(16.dp)
@@ -51,7 +50,7 @@ fun DataForm(modifier: Modifier, ) {
         OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.size(8.dp))
         Button(onClick = { /* TODO */ }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Add Expense")
+            Text(text = title)
         }
     }
 }

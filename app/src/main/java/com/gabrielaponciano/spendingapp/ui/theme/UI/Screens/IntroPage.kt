@@ -50,7 +50,7 @@ fun IntroPage(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp),
-                contentAlignment = Alignment.Center // Centraliza a logo no meio verticalmente e horizontalmente
+                contentAlignment = Alignment.Center
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.logofinancial),
@@ -61,7 +61,7 @@ fun IntroPage(navController: NavController) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
 
-                horizontalAlignment = Alignment.CenterHorizontally // Centraliza os botões horizontalmente
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 IntroButton(title = "Login") {
                     navController.navigate("login")
