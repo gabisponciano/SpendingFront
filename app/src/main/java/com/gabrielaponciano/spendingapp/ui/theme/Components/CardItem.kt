@@ -24,7 +24,7 @@ import com.gabrielaponciano.spendingapp.ui.theme.Purple50
 @Composable
 fun CardItem(
     modifier: Modifier,
-    balance: String, income: String, expense: String
+    balance: String, expense: String
 ) {
     Column(
         modifier = modifier
@@ -42,7 +42,7 @@ fun CardItem(
         ) {
             Column {
                 Text(
-                    text = "Total Balance",
+                    text = "Total:",
                     fontSize = 24.sp,
                     color = Color.White
                 )
@@ -59,15 +59,8 @@ fun CardItem(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f)
+                .weight(2f)
         ) {
-            CardRowItem(
-                modifier = Modifier
-                    .align(Alignment.CenterStart),
-                title = "Income",
-                amount = income,
-                imaget = R.drawable.ic_income
-            )
             Spacer(modifier = Modifier.size(8.dp))
             CardRowItem(
                 modifier = Modifier

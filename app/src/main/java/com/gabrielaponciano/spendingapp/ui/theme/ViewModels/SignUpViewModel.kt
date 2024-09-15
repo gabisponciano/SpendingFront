@@ -1,7 +1,6 @@
 package com.gabrielaponciano.spendingapp.ui.theme.ViewModels
 
 import androidx.lifecycle.ViewModel
-import com.gabrielaponciano.spendingapp.ui.theme.States.LoginUiState
 import com.gabrielaponciano.spendingapp.ui.theme.States.SignUpUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

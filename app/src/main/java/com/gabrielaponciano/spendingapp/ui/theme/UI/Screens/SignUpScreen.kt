@@ -32,16 +32,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielaponciano.spendingapp.ui.theme.BackField
 import com.gabrielaponciano.spendingapp.ui.theme.Components.BottomButton
-import com.gabrielaponciano.spendingapp.ui.theme.Purple40
-import com.gabrielaponciano.spendingapp.ui.theme.States.LoginUiState
 import com.gabrielaponciano.spendingapp.ui.theme.States.SignUpUiState
 import com.gabrielaponciano.spendingapp.ui.theme.TextFieldBackground
-import com.gabrielaponciano.spendingapp.ui.theme.ViewModels.LoginViewModel
 import com.gabrielaponciano.spendingapp.ui.theme.ViewModels.SignUpViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

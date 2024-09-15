@@ -37,11 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.gabrielaponciano.spendingapp.ui.theme.States.AddExpenseUiState
 import com.gabrielaponciano.spendingapp.ui.theme.ViewModels.AddExpenseViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DataForm(modifier: Modifier, title:String) {
+fun DataForm(modifier: Modifier, title:String, navController: NavController) {
     val addExpenseViewModel = viewModel<AddExpenseViewModel>()
     val uiState by addExpenseViewModel.uiState.collectAsState()
     var showDatePicker by remember { mutableStateOf(false) }
@@ -64,7 +66,11 @@ fun DataForm(modifier: Modifier, title:String) {
         Spacer(modifier = Modifier.size(8.dp))
         Text(text = "Amount", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.size(4.dp))
-        OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth(),
+        OutlinedTextField(value =uiState.value?.toString() ?: "", onValueChange = { newValue ->
+            val filteredValue = newValue.filter { it.isDigit() || it == '.' }
+            val floatValue = filteredValue.toFloatOrNull() ?: 0f
+            addExpenseViewModel.expenseValue(floatValue)
+        }, modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number))
         Spacer(modifier = Modifier.size(8.dp))
         Text(text = "Date", fontSize = 14.sp, color = Color.Gray)
@@ -101,75 +107,24 @@ fun DataForm(modifier: Modifier, title:String) {
             }
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Button(onClick = { /* TODO */ }, modifier = Modifier.fillMaxWidth()) {
-            Text(text = title)
-        }
-    }
-}
+        Button(onClick = {
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DataFormInput(modifier: Modifier, title:String) {
-    val addExpenseViewModel = viewModel<AddExpenseViewModel>()
-    val uiState by addExpenseViewModel.uiState.collectAsState()
-    var showDatePicker by remember { mutableStateOf(false) }
-    val datePickerState = rememberDatePickerState()
-    val selectedDate = datePickerState.selectedDateMillis?.let {
-        addExpenseViewModel.convertMillisToDate(it)
-    } ?: ""
-    Column(
-        modifier = modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-            .shadow(16.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .background(Color.White)
-            .padding(16.dp)
-    ) {
-        Text(text = "Name", fontSize = 14.sp, color = Color.Gray)
-        Spacer(modifier = Modifier.size(4.dp))
-        OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
-        Spacer(modifier = Modifier.size(8.dp))
-        Text(text = "Amount", fontSize = 14.sp, color = Color.Gray)
-        Spacer(modifier = Modifier.size(4.dp))
-        OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number))
-        Spacer(modifier = Modifier.size(8.dp))
-        Text(text = "Date", fontSize = 14.sp, color = Color.Gray)
-        Spacer(modifier = Modifier.size(4.dp))
-        OutlinedTextField(value = selectedDate, onValueChange = {},
-            readOnly = true,
-            trailingIcon = {
-                IconButton(onClick = { showDatePicker = !showDatePicker }) {
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = "Select date"
-                    )
-                }
-            },
-            modifier = Modifier.fillMaxWidth())
+            val expense = AddExpenseUiState(
+                name = uiState.name,
+                date = datePickerState.selectedDateMillis,
+                value = uiState.value
+            )
 
-        if (showDatePicker){
-            Popup (onDismissRequest = { showDatePicker = false },
-                alignment = Alignment.TopStart){
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(y = 64.dp)
-                        .shadow(elevation = 4.dp)
-                        .background(MaterialTheme.colorScheme.surface)
-                        .padding(16.dp)
-                ) {
-                    DatePicker(
-                        state = datePickerState,
-                        showModeToggle = false
-                    )
-                }
+            if (expense.name.isNotEmpty() && expense.value != null && expense.date != null) {
+                addExpenseViewModel.addExpense(expense)
 
+                addExpenseViewModel.expenseName("")
+                addExpenseViewModel.expenseValue(0f)
+                addExpenseViewModel.expenseDate(null)
             }
-        }
-        Spacer(modifier = Modifier.size(8.dp))
-        Button(onClick = { /* TODO */ }, modifier = Modifier.fillMaxWidth()) {
+            navController.popBackStack()
+
+        }, modifier = Modifier.fillMaxWidth()) {
             Text(text = title)
         }
     }
