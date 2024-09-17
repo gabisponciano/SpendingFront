@@ -2,6 +2,10 @@ package com.gabrielaponciano.spendingapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val redbutton = Color(0XFFFD0000)
+val buttonBlue = Color(0XFF006FFD)
+val backButton = Color(0XFFEAF2FF)
+
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
