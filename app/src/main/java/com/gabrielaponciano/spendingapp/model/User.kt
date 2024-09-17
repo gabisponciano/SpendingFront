@@ -1,14 +1,11 @@
 package com.gabrielaponciano.spendingapp.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class FavoriteRequest(
-    val id: Int,
+data class User(
+    val id: Int? = null,
     val name: String,
     val email: String,
-    val password: String,
+    val password: String = "",
     val spendings: List<Spending> = emptyList(),
-    val groupId: Int? = null
-
+    val groupId: Int? = null,
+    val totalSpendings: Float? = null
 )

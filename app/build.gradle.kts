@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -19,6 +21,16 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // Carregar variáveis do arquivo local.properties
+        val localProperties = rootProject.file("local.properties")
+        if (localProperties.exists()) {
+            val properties = Properties()
+            properties.load(localProperties.inputStream())
+
+            // Adicionar BACKEND_URL como variável de ambiente no BuildConfig
+            buildConfigField("String", "BACKEND_URL", "\"${properties["BACKEND_URL"]}\"")
+        }
     }
 
     buildTypes {
@@ -29,6 +41,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+    buildFeatures {
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -51,7 +66,7 @@ android {
 }
 
 dependencies {
-
+    // Suas dependências
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -69,15 +84,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.kotlinx.coroutines.core)
-    implementation (libs.androidx.runtime.livedata)
-    implementation (libs.androidx.navigation.compose)
-    implementation (libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.constraintlayout.compose)
 
-    //Retrofit
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
-
-    implementation (libs.kotlinx.serialization.json)
-
+    implementation(libs.kotlinx.serialization.json)
 }
