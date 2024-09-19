@@ -1,5 +1,7 @@
 package com.gabrielaponciano.spendingapp.ui.theme.Components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,9 +40,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.gabrielaponciano.spendingapp.ui.theme.States.AddExpenseUiState
 import com.gabrielaponciano.spendingapp.ui.theme.ViewModels.AddExpenseViewModel
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DataForm(modifier: Modifier, title:String, navController: NavController) {
@@ -61,20 +66,30 @@ fun DataForm(modifier: Modifier, title:String, navController: NavController) {
             .padding(16.dp)
     ) {
         Text(text = "Name", fontSize = 14.sp, color = Color.Gray)
+
         Spacer(modifier = Modifier.size(4.dp))
+
         OutlinedTextField(value = uiState.name , onValueChange = {addExpenseViewModel.expenseName(it)}, modifier = Modifier.fillMaxWidth())
+
         Spacer(modifier = Modifier.size(8.dp))
+
         Text(text = "Amount", fontSize = 14.sp, color = Color.Gray)
+
         Spacer(modifier = Modifier.size(4.dp))
+
         OutlinedTextField(value =uiState.value?.toString() ?: "", onValueChange = { newValue ->
             val filteredValue = newValue.filter { it.isDigit() || it == '.' }
             val floatValue = filteredValue.toFloatOrNull() ?: 0f
             addExpenseViewModel.expenseValue(floatValue)
         }, modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number))
+
         Spacer(modifier = Modifier.size(8.dp))
+
         Text(text = "Date", fontSize = 14.sp, color = Color.Gray)
+
         Spacer(modifier = Modifier.size(4.dp))
+
         OutlinedTextField(value = selectedDate, onValueChange = {},
             readOnly = true,
             trailingIcon = {
@@ -107,21 +122,24 @@ fun DataForm(modifier: Modifier, title:String, navController: NavController) {
             }
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Button(onClick = {
 
-            val expense = AddExpenseUiState(
+        Button(onClick = {
+            val selectedDateMillis = datePickerState.selectedDateMillis ?: 0L
+            val date = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(selectedDateMillis),
+                ZoneId.systemDefault()
+            )
+            val token = addExpenseViewModel.token
+            val userId = addExpenseViewModel.userId
+            addExpenseViewModel.addExpense(
                 name = uiState.name,
-                date = datePickerState.selectedDateMillis,
-                value = uiState.value
+                value = uiState.value?:0f,
+                userId = addExpenseViewModel.setUserId(userId),
+                day = date,
+                token = addExpenseViewModel.setUserToken(token)
             )
 
-            if (expense.name.isNotEmpty() && expense.value != null && expense.date != null) {
-                addExpenseViewModel.addExpense(expense)
-
-                addExpenseViewModel.expenseName("")
-                addExpenseViewModel.expenseValue(0f)
-                addExpenseViewModel.expenseDate(null)
-            }
+            addExpenseViewModel.clearFields()
             navController.popBackStack()
 
         }, modifier = Modifier.fillMaxWidth()) {

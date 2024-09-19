@@ -1,5 +1,7 @@
 package com.gabrielaponciano.spendingapp.ui.theme.UI.Screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,15 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielaponciano.spendingapp.R
 import com.gabrielaponciano.spendingapp.ui.theme.Components.DataForm
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AddExpense() {
     val navController = rememberNavController()
@@ -69,10 +70,4 @@ fun AddExpense() {
 
         }
     }
-}
-
-@Composable
-@Preview
-fun AddPreview(){
-    AddExpense()
 }

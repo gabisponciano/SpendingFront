@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GlobalScope.launch {

@@ -30,18 +30,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.gabrielaponciano.spendingapp.R
+import com.gabrielaponciano.spendingapp.model.Spending
 import com.gabrielaponciano.spendingapp.ui.theme.Components.AddButton
 import com.gabrielaponciano.spendingapp.ui.theme.Components.CardItem
-import com.gabrielaponciano.spendingapp.ui.theme.States.AddExpenseUiState
 import com.gabrielaponciano.spendingapp.ui.theme.ViewModels.AddExpenseViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 @Composable
 fun HomeScreen(navController: NavController) {
     val addExpenseViewModel = viewModel<AddExpenseViewModel>()
-    val expenses by addExpenseViewModel.expenses.collectAsState()
+    val expenses by addExpenseViewModel.expenseList.collectAsState()
 
     Scaffold (
         bottomBar = {
@@ -90,7 +87,7 @@ fun HomeScreen(navController: NavController) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             ) {
-                items(expenses) { expense ->
+                items(addExpenseViewModel.expenseList.value) { expense ->
                     ExpenseItem(expense)
                 }
 
@@ -99,7 +96,7 @@ fun HomeScreen(navController: NavController) {
     }
 }
 @Composable
-fun ExpenseItem(expense: AddExpenseUiState) {
+fun ExpenseItem(expense: Spending) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -109,9 +106,8 @@ fun ExpenseItem(expense: AddExpenseUiState) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = expense.name, fontSize = 18.sp)
             Text(text = "Amount: ${expense.value}", fontSize = 14.sp)
-            expense.date?.let {
-                Text(text = "Date: ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date(it))}", fontSize = 14.sp)
-            }
+            Text(text = "Date: ${expense.day}", fontSize = 14.sp)
+
         }
     }
 }

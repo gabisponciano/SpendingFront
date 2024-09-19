@@ -1,8 +1,5 @@
 package com.gabrielaponciano.spendingapp.network
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import com.gabrielaponciano.spendingapp.BuildConfig
 import com.gabrielaponciano.spendingapp.model.BodyResponse
 import com.gabrielaponciano.spendingapp.model.Group
 import com.gabrielaponciano.spendingapp.model.GroupCreate
@@ -12,12 +9,18 @@ import com.gabrielaponciano.spendingapp.model.LoginRequest
 import com.gabrielaponciano.spendingapp.model.LoginResponse
 import com.gabrielaponciano.spendingapp.model.Spending
 import com.gabrielaponciano.spendingapp.model.User
+import retrofit2.Retrofit
 import retrofit2.await
+import retrofit2.converter.gson.GsonConverterFactory
+
+object Constants {
+    const val BACKEND_URL = "http://196.168.0.10:3000"
+}
 
 object ExpenseControllerApi{
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(BuildConfig.BACKEND_URL)
+        .baseUrl("http://196.168.0.10:3000")
         .build()
 
     private val request = retrofit.create(RoutesApiService::class.java)
